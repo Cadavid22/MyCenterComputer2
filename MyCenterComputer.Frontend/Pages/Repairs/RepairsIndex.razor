@@ -1,8 +1,99 @@
 ﻿@page "/Repairs"
-
-
+@inject IRepository Repository
+@inject SweetAlertService sweetAlertService
+@inject NavigationManager navigationManager
 <h3>Repairs</h3>
 
+@if (Repairs == null)
+{
+<p>Loading...</p>
+}
+else
+{
+<a href="/repairs/create" class="btn btn-primary">New Repairs</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Brand</th>
+            <th>Name</th>
+            <th>LastName</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Diagnosis</th>
+            <th>Coments</th>
+            <th>Status</th>
+            <th>Value</th>
+            <th>DateStarted</th>
+            <th>DateFinished</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var repair in Repairs)
+        {
+            <tr>
+                <td>@repairs.Type</td>
+                <td>@repairs.Brand</td>
+                <td>@repairs.Name</td>
+                <td>@repairs.LastName</td>
+                <td>@repairs.Phone</td>
+                <td>@repairs.Email</td>
+                <td>@repairs.Diagnosis</td>
+                <td>@repairs.Coments</td>
+                <td>@($"{repairs.DateStarted:yyyy/MM/dd}")</td>
+                <td>@($"{repairs.DateFinished:yyyy/MM/dd}")</td>
+                <td>@($"{repairs.Value:c2}")</td>
+                <td>@repairs.Status</td>
+                <td>
+                    <a href="/repairs/edit/@repairs.Id" class="btn btn-warning">Edit</a>
+                    <button class="btn btn-info">Complete</button>
+                    <button class="btn btn-danger" @onclick=@(() => DeleteAsync(repairs))>Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+}
 @code {
+    public List<MyRepair>? Repairs { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await repository.GetAsync<List<MyRepair>>("api/MyRepairs");
+        if (response.IsSuccess)
+        {
+            Repairs = response.Result;
+        }
+    }
+
+    private async Task DeleteAsync(MyRepairs myReparation)
+    {
+        var result = await sweetAlertService.FireAsync(new SweetAlertOptions
+            {
+                Title = "Confirmed",
+                Text = "Are u sure to delete this item?",
+                Icon = SweetAlertIcon.Question,
+                ShowCancelButton = true
+            });
+
+        var responseHttp = await repository.DeleteAsync<MyReparation>($"api/MyReparations/{myReparation.Id}");
+
+        if (!responseHttp.IsSuccess)
+        {
+            await sweetAlertService.FireAsync("Error", responseHttp.Message, SweetAlertIcon.Error);
+            return;
+        }
+
+        var toast = sweetAlertService.Mixin(new SweetAlertOptions
+            {
+                Toast = true,
+                Position = SweetAlertPosition.BottomEnd,
+                ShowCloseButton = true,
+                Timer = 3000
+            });
+        await toast.FireAsync(icon: SweetAlertIc
+    }
 
 }
