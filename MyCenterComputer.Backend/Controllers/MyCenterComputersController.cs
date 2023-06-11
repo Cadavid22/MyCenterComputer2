@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MyCenterComputer.Backend.Data;
-using MyCenterComputer.Shared.Entities;
-namespace MyCenterComputer.Backend.Controllers
+using Microsoft.EntityFrameworkCore;
+using MyCenter.Backend.Data;
+using MyCenter.Shared.Entities;
+namespace MyCenter.Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -35,7 +36,7 @@ namespace MyCenterComputer.Backend.Controllers
 
 
         [HttpPost]
-        public IActionResult Post(MyCenter computer)
+        public IActionResult Post(Shared.Entities.MyCenter computer)
         {
             _context.Add(computer);
             _context.SaveChanges();
@@ -45,10 +46,10 @@ namespace MyCenterComputer.Backend.Controllers
 
 
         [HttpPut]
-        public IActionResult Put(MyCenter computer)
+        public IActionResult Put(Shared.Entities.MyCenter computer)
         {
             
-            var Mycomputer = _context.CenterComputers.FirstOrDefault(x => x.Id == computer.Id);
+            var Mycomputer = _context.CenterComputers.AsNoTracking().FirstOrDefault(x => x.Id == computer.Id);
             if (computer == null)
             {
                 return NotFound();

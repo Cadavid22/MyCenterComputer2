@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyCenterComputer.Shared.Entities
+namespace MyCenter.Shared.Entities
 {
     public class MyCenter
     {

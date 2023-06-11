@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace MyCenterComputer.Backend.Migrations
+namespace MyCenter.Backend.Migrations
 {
     /// <inheritdoc />
     public partial class InitialDB : Migration

@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MyCenterComputer.Backend.Data;
+using MyCenter.Backend.Data;
 
 #nullable disable
 
-namespace MyCenterComputer.Backend.Migrations
+namespace MyCenter.Backend.Migrations
 {
     [DbContext(typeof(DataContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
