@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyCenterComputer.Shared.Entities
 {
-    public class MyCenterComputer
+    public class MyCenter
     {
         public int Id { get; set; }
         public string Type { get; set; } = null!;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-
+using MyCenterComputer.Shared.Entities;
 
 namespace MyCenterComputer.Backend.Data
 {
@@ -14,7 +14,7 @@ namespace MyCenterComputer.Backend.Data
 
         }
 
-        public DbSet<MyCenterComputer> CenterComputers { get; set; }
+        public DbSet<MyCenter> CenterComputers { get; set; }
 
     }
 }

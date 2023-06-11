@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyCenterComputer.Backend.Data;
-
+using MyCenterComputer.Shared.Entities;
 namespace MyCenterComputer.Backend.Controllers
 {
     [Route("api/[controller]")]
@@ -35,7 +35,7 @@ namespace MyCenterComputer.Backend.Controllers
 
 
         [HttpPost]
-        public IActionResult Post(MyCenterComputer computer)
+        public IActionResult Post(MyCenter computer)
         {
             _context.Add(computer);
             _context.SaveChanges();
@@ -45,8 +45,9 @@ namespace MyCenterComputer.Backend.Controllers
 
 
         [HttpPut]
-        public IActionResult Put(MyCenterComputer computer)
+        public IActionResult Put(MyCenter computer)
         {
+            
             var Mycomputer = _context.CenterComputers.FirstOrDefault(x => x.Id == computer.Id);
             if (computer == null)
             {
@@ -71,9 +72,9 @@ namespace MyCenterComputer.Backend.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public IActionResult Delete(int Id)
+        public IActionResult Delete(int id)
         {
-            var Mycomputer = _context.CenterComputers.FirstOrDefault(x => x.Id == Id);
+            var Mycomputer = _context.CenterComputers.FirstOrDefault(x => x.Id == id);
             if (Mycomputer == null)
             {
                 return NotFound();
